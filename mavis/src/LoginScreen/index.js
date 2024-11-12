@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Input, Button, Text, Block } from 'galio-framework';
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,13 +30,13 @@ export default function LoginScreen() {
         viewPass
       />
 
-      <Button color="info" round style={styles.button} >
+      <Button color="info" round style={styles.button}>
         Entrar
       </Button>
 
       <Text style={styles.registerText}>
         Não tem uma conta?{' '}
-        <Text color="info" style={styles.link}>
+        <Text color="info" style={styles.link} onPress={() => navigation.navigate('RegisterScreen')}>
           Registrar-se
         </Text>
       </Text>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     justifyContent: 'center',
-    alignItems: 'center', 
+    alignItems: 'center',
     backgroundColor: '#fff',
   },
   title: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 12,
-    width: '100%', 
+    width: '100%',
   },
   button: {
     marginTop: 20,

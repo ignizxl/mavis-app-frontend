@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Input, Button, Text, Block } from 'galio-framework';
 
-export default function RegisterScreen() {
+export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   return (
     <Block safe flex style={styles.container}>
@@ -57,13 +59,33 @@ export default function RegisterScreen() {
         style={styles.input}
       />
 
+      <Input
+        placeholder="Senha"
+        value={password}
+        onChangeText={setPassword}
+        rounded
+        style={styles.input}
+        password
+        viewPass
+      />
+
+      <Input
+        placeholder="Confirmar senha"
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        rounded
+        style={styles.input}
+        password
+        viewPass
+      />
+
       <Button color="info" round style={styles.button}>
         Registrar
       </Button>
 
       <Text style={styles.loginText}>
         Já tem uma conta?{' '}
-        <Text color="info" style={styles.link}>
+        <Text color="info" style={styles.link} onPress={() => navigation.navigate('LoginScreen')}>
           Entrar
         </Text>
       </Text>
