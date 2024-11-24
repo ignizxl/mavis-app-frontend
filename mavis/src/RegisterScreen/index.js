@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
 import { Input, Button, Text, Block } from 'galio-framework';
+import styles from './styles';
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -65,33 +65,3 @@ export default function RegisterScreen({ navigation }) {
     </Block>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  title: {
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  input: {
-    marginBottom: 12,
-    width: '100%',
-  },
-  button: {
-    marginTop: 20,
-    alignSelf: 'center',
-    width: '50%',
-  },
-  registerText: {
-    textAlign: 'center',
-    marginTop: 16,
-  },
-  link: {
-    color: '#007bff',
-    textDecorationLine: 'underline',
-  }
-});
