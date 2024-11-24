@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import LoginScreen from './src/LoginScreen';
 import RegisterScreen from './src/RegisterScreen';
+import AdditionalInfoScreen from './src/AdditionalInfoScreen';
+import WelcomeScreen from './src/WelcomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -15,9 +17,22 @@ export default function App() {
           component={LoginScreen}
           options={{ headerShown: false }}
         />
+
         <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="AdditionalInfoScreen"
+          component={AdditionalInfoScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="WelcomeScreen"
+          component={WelcomeScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
