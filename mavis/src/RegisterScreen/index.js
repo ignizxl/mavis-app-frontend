@@ -3,34 +3,13 @@ import { StyleSheet } from 'react-native';
 import { Input, Button, Text, Block } from 'galio-framework';
 
 export default function RegisterScreen({ navigation }) {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   return (
     <Block safe flex style={styles.container}>
       <Text h4 style={styles.title}>Criar Conta</Text>
-
-      <Input
-        placeholder="Nome"
-        value={name}
-        onChangeText={setName}
-        rounded
-        style={styles.input}
-      />
-
-      <Input
-        placeholder="Idade"
-        value={age}
-        onChangeText={setAge}
-        rounded
-        style={styles.input}
-        keyboardType="numeric"
-      />
 
       <Input
         placeholder="Email"
@@ -40,23 +19,6 @@ export default function RegisterScreen({ navigation }) {
         style={styles.input}
         keyboardType="email-address"
         autoCapitalize="none"
-      />
-
-      <Input
-        placeholder="Telefone"
-        value={phone}
-        onChangeText={setPhone}
-        rounded
-        style={styles.input}
-        keyboardType="phone-pad"
-      />
-
-      <Input
-        placeholder="Endereço"
-        value={address}
-        onChangeText={setAddress}
-        rounded
-        style={styles.input}
       />
 
       <Input
@@ -79,13 +41,24 @@ export default function RegisterScreen({ navigation }) {
         viewPass
       />
 
-      <Button color="info" round style={styles.button}>
-        Registrar
+      <Button
+        color="info"
+        round
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate('AdditionalInfoScreen');
+        }}
+      >
+        Continuar
       </Button>
 
       <Text style={styles.loginText}>
         Já tem uma conta?{' '}
-        <Text color="info" style={styles.link} onPress={() => navigation.navigate('LoginScreen')}>
+        <Text
+          color="info"
+          style={styles.link}
+          onPress={() => navigation.navigate('LoginScreen')}
+        >
           Entrar
         </Text>
       </Text>
@@ -97,6 +70,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#fff',
   },
   title: {
@@ -105,13 +79,14 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 12,
+    width: '100%',
   },
   button: {
     marginTop: 20,
     alignSelf: 'center',
     width: '50%',
   },
-  loginText: {
+  registerText: {
     textAlign: 'center',
     marginTop: 16,
   },
