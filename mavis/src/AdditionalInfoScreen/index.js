@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Input, Button, Text, Block } from 'galio-framework';
+import styles from './styles';
 
 export default function AdditionalInfoScreen({ navigation }) {
   // dados principais
@@ -29,6 +30,7 @@ export default function AdditionalInfoScreen({ navigation }) {
       <Block safe flex style={styles.container}>
         <Text h4 style={styles.title}>Informações Adicionais</Text>
 
+        <Text style={styles.subtitle}>Dados Pessoais</Text>
         <Input
           placeholder="Nome Completo"
           value={fullName}
@@ -164,38 +166,13 @@ export default function AdditionalInfoScreen({ navigation }) {
           style={styles.button}
           onPress={() => {
             console.log('Dados salvos com sucesso!');
-            navigation.navigate('LoginScreen'); 
+            navigation.navigate('LoginScreen');
           }}
         >
           Finalizar
         </Button>
-        
+
       </Block>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 30,
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
-  title: {
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginVertical: 10,
-  },
-  input: {
-    marginBottom: 12,
-  },
-  button: {
-    marginTop: 20,
-    alignSelf: 'center',
-    width: '50%',
-  },
-});
