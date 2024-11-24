@@ -30,7 +30,8 @@ export default function LoginScreen({ navigation }) {
         viewPass
       />
 
-      <Button color="info" round style={styles.button}>
+      <Button color="info" round style={styles.button}
+        onPress={() => navigation.navigate('WelcomeScreen')}>
         Entrar
       </Button>
 
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     alignSelf: 'center',
-    width: '50%',
+    width: '100%',
   },
   registerText: {
     textAlign: 'center',
