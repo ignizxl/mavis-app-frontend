@@ -18,6 +18,7 @@ export default function WelcomeScreen({ navigation }) {
         color="info"
         round
         style={styles.button}
+        onPress={() => navigation.navigate('HomeScreen')}
       >
         Iniciar
       </Button>
