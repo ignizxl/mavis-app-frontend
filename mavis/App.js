@@ -3,6 +3,10 @@ import LoginScreen from './src/LoginScreen';
 import RegisterScreen from './src/RegisterScreen';
 import AdditionalInfoScreen from './src/AdditionalInfoScreen';
 import WelcomeScreen from './src/WelcomeScreen';
+import HomeScreen from './src/HomeScreen';
+import ProfileScreen from './src/ProfileScreen';
+import EmergencyContactsScreen from './src/EmergencyContactsScreen';
+import HealthReportsScreen from './src/HealthReportsScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -33,6 +37,30 @@ export default function App() {
         <Stack.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="ProfileScreen"
+          component={ProfileScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="EmergencyContactsScreen"
+          component={EmergencyContactsScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="HealthReportsScreen"
+          component={HealthReportsScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
