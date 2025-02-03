@@ -1,38 +1,41 @@
 import React from 'react';
 import { Block, Text, Button, Icon } from 'galio-framework';
+import { StyleSheet } from 'react-native';
 
 export default function ProfileScreen({ navigation }) {
   return (
-    <Block safe flex>
-      <Block flex>
-        <Text h4 bold>
+    <Block safe flex style={styles.container}>
+      <Block flex style={styles.content}>
+        <Text h4 bold style={styles.title}>
           Meu Perfil
         </Text>
-        <Text p>
+        <Text p style={styles.description}>
           Aqui você pode visualizar e editar suas informações de saúde.
         </Text>
 
-        <Block>
+        <Block style={styles.menu}>
           <Button
             color="info"
             round
+            style={styles.button}
             onPress={() => alert('Editar Perfil')}
           >
-            <Block row middle>
+            <Block row middle style={styles.buttonContent}>
               <Icon name="edit" family="MaterialIcons" color="white" size={16} />
-              <Text>Editar Perfil</Text>
+              <Text style={styles.buttonText}>Editar Perfil</Text>
             </Block>
           </Button>
         </Block>
       </Block>
 
-      <Block>
+      <Block style={styles.bottomBar}>
         <Button
           onlyIcon
           icon="home"
           iconFamily="MaterialIcons"
           iconSize={20}
           color="info"
+          style={styles.navButton}
           onPress={() => navigation.navigate('HomeScreen')}
         />
         <Button
@@ -41,7 +44,8 @@ export default function ProfileScreen({ navigation }) {
           iconFamily="MaterialIcons"
           iconSize={20}
           color="info"
-          onPress={() => navigation.navigate('ProfileScreen')} 
+          style={styles.navButton}
+          onPress={() => navigation.navigate('ProfileScreen')}
         />
 
         <Button
@@ -50,6 +54,7 @@ export default function ProfileScreen({ navigation }) {
           iconFamily="MaterialIcons"
           iconSize={20}
           color="info"
+          style={styles.navButton}
           onPress={() => navigation.navigate('HealthReportsScreen')}
         />
         <Button
@@ -58,9 +63,68 @@ export default function ProfileScreen({ navigation }) {
           iconFamily="MaterialIcons"
           iconSize={20}
           color="info"
+          style={styles.navButton}
           onPress={() => navigation.navigate('EmergencyContactsScreen')}
         />
       </Block>
     </Block>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  content: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#333',
+  },
+  description: {
+    textAlign: 'center',
+    marginBottom: 30,
+    color: '#555',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  menu: {
+    marginTop: 20,
+    width: '100%',
+    alignItems: 'center',
+  },
+  button: {
+    marginVertical: 10,
+    width: '100%',
+    backgroundColor: '#17a2b8',
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    marginLeft: 10,
+  },
+  bottomBar: {
+    height: 60,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
+    borderTopWidth: 1,
+    borderColor: '#ddd',
+  },
+  navButton: {
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
