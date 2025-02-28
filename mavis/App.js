@@ -1,3 +1,4 @@
+import "./global.css";
 import { StyleSheet } from 'react-native';
 import LoginScreen from './src/LoginScreen';
 import RegisterScreen from './src/RegisterScreen';
@@ -6,7 +7,7 @@ import WelcomeScreen from './src/WelcomeScreen';
 import HomeScreen from './src/HomeScreen';
 import ProfileScreen from './src/ProfileScreen';
 import EmergencyContactsScreen from './src/EmergencyContactsScreen';
-import HealthReportsScreen from './src/HealthReportsScreen';
+import MedicalHistoryScreen from './src/MedicalHistoryScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -59,8 +60,8 @@ export default function App() {
         />
 
         <Stack.Screen
-          name="HealthReportsScreen"
-          component={HealthReportsScreen}
+          name="MedicalHistoryScreen"
+          component={MedicalHistoryScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
