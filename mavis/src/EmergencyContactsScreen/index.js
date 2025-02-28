@@ -1,71 +1,46 @@
 import React from 'react';
-import { Block, Text, Button, Icon } from 'galio-framework';
-import styles from './styles';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function EmergencyContactsScreen({ navigation }) {
+export default function EmergencyContactsScreen() {
+  const navigation = useNavigation();
+
   return (
-    <Block safe flex style={styles.container}>
-      <Block flex style={styles.content}>
-        <Text h4 bold style={styles.title}>
-          Contatos de Emergência
-        </Text>
-        <Text p style={styles.description}>
+    <View className="flex-1 bg-gray-100 p-6">
+      <View className="flex-1 justify-center items-center">
+        <Text className="text-2xl font-bold text-gray-800">Contatos de Emergência</Text>
+        <Text className="text-gray-600 mt-2 text-center">
           Aqui você pode visualizar e gerenciar seus contatos de emergência.
         </Text>
+      </View>
 
-        <Block style={styles.menu}>
-          <Button
-            color="info"
-            round
-            style={styles.button}
-            onPress={() => alert('Adicionar Contato')}
-          >
-            <Block row middle style={styles.buttonContent}>
-              <Icon name="person-add" family="MaterialIcons" color="white" size={16} />
-              <Text style={styles.buttonText}>Adicionar Contato</Text>
-            </Block>
-          </Button>
-        </Block>
-      </Block>
+      <View className="space-y-6">
+        <TouchableOpacity
+          className="bg-blue-900 py-4 rounded-xl flex-row justify-center items-center"
+          onPress={() => alert('Adicionar Contato')}
+        >
+          <Ionicons name="person-add" size={24} color="white" />
+          <Text className="text-white font-semibold ml-3">Adicionar Contato</Text>
+        </TouchableOpacity>
+      </View>
 
-      <Block style={styles.bottomBar}>
-        <Button
-          onlyIcon
-          icon="home"
-          iconFamily="MaterialIcons"
-          iconSize={20}
-          color="info"
-          style={styles.navButton}
-          onPress={() => navigation.navigate('HomeScreen')}
-        />
-        <Button
-          onlyIcon
-          icon="person"
-          iconFamily="MaterialIcons"
-          iconSize={20}
-          color="info"
-          style={styles.navButton}
-          onPress={() => navigation.navigate('ProfileScreen')}
-        />
-        <Button
-          onlyIcon
-          icon="favorite"
-          iconFamily="MaterialIcons"
-          iconSize={20}
-          color="info"
-          style={styles.navButton}
-          onPress={() => navigation.navigate('HealthReportsScreen')}
-        />
-        <Button
-          onlyIcon
-          icon="phone"
-          iconFamily="MaterialIcons"
-          iconSize={20}
-          color="info"
-          style={styles.navButton}
-          onPress={() => navigation.navigate('EmergencyContactsScreen')}
-        />
-      </Block>
-    </Block>
+      <View className="mt-8">
+        <View className="flex-row justify-around bg-white py-4 rounded-t-xl shadow-md">
+          <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+            <Ionicons name="home" size={28} color="gray" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
+            <Ionicons name="person" size={28} color="gray" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('MedicalHistoryScreen')}>
+            <Ionicons name="document-text" size={28} color="gray" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('EmergencyContactsScreen')}>
+            <Ionicons name="call" size={28} color="gray" />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
   );
 }
