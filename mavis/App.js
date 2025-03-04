@@ -1,5 +1,4 @@
 import "./global.css";
-import { StyleSheet } from 'react-native';
 import LoginScreen from './src/LoginScreen';
 import RegisterScreen from './src/RegisterScreen';
 import AdditionalInfoScreen from './src/AdditionalInfoScreen';
@@ -9,7 +8,9 @@ import ProfileScreen from './src/ProfileScreen';
 import EmergencyContactsScreen from './src/EmergencyContactsScreen';
 import MedicalHistoryScreen from './src/MedicalHistoryScreen';
 import AddEmergencyContactScreen from './src/AddEmergencyContactScreen';
-import EditEmergencyContactScreen from './src/EditEmergencyContactScreen';  
+import EditEmergencyContactScreen from './src/EditEmergencyContactScreen'; 
+import AddMedicalHistoryScreen from './src/AddMedicalHistoryScreen';
+import EditProfileScreen from "./src/EditProfileScreen";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -59,16 +60,15 @@ export default function App() {
           name="EditEmergencyContactScreen" 
           component={EditEmergencyContactScreen}
         />
+        <Stack.Screen
+          name="AddMedicalHistoryScreen"
+          component={AddMedicalHistoryScreen}
+        />
+        <Stack.Screen
+          name="EditProfileScreen"
+          component={EditProfileScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
