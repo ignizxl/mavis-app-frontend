@@ -8,6 +8,8 @@ import HomeScreen from './src/HomeScreen';
 import ProfileScreen from './src/ProfileScreen';
 import EmergencyContactsScreen from './src/EmergencyContactsScreen';
 import MedicalHistoryScreen from './src/MedicalHistoryScreen';
+import AddEmergencyContactScreen from './src/AddEmergencyContactScreen';
+import EditEmergencyContactScreen from './src/EditEmergencyContactScreen';  
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -16,53 +18,46 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="LoginScreen">
+      <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
-          options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}
-          options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="AdditionalInfoScreen"
           component={AdditionalInfoScreen}
-          options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}
-          options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
-          options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="ProfileScreen"
           component={ProfileScreen}
-          options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="EmergencyContactsScreen"
           component={EmergencyContactsScreen}
-          options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="MedicalHistoryScreen"
           component={MedicalHistoryScreen}
-          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddEmergencyContactScreen"
+          component={AddEmergencyContactScreen}
+        />
+        <Stack.Screen
+          name="EditEmergencyContactScreen" 
+          component={EditEmergencyContactScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
