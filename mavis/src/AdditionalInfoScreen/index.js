@@ -97,11 +97,6 @@ export default function AdditionalInfoScreen({ navigation }) {
             {loading ? "Cadastrando..." : "Cadastrar"}
           </Text>
         </TouchableOpacity>
-        
-        <Text className="mt-4 text-sm text-gray-600 text-center">
-          Já tem uma conta? 
-          <Text className="text-blue-900 font-medium" onPress={() => navigation.navigate('LoginScreen')}> Faça login</Text>
-        </Text>
       </View>
     </ScrollView>
   );
