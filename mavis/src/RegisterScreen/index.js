@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import api from "../api/api";
 
 export default function RegisterScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -25,33 +26,42 @@ export default function RegisterScreen({ navigation }) {
       return;
     }
 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert("Erro", "Por favor, insira um e-mail válido.");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const response = await fetch("http://xxx.xxx.x.xxx:8081/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password }),
+  
+      const response = await api.post("/users", {
+        username: username.trim(),
+        email: email.toLowerCase().trim(),
+        password,
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        // se a resposta não for OK, lança um erro com a mensagem do back
-        throw new Error(data.message || "Erro ao cadastrar usuário.");
-      }
-
-      Alert.alert("Sucesso", "Cadastro realizado com sucesso!", [
-        { text: "OK", onPress: () => navigation.navigate("LoginScreen") },
+  
+      Alert.alert("Sucesso", "Cadastro realizado!", [
+        { text: "OK", onPress: () => navigation.navigate("LoginScreen") }, 
       ]);
+  
     } catch (error) {
-      Alert.alert("Erro", error.message || "Ocorreu um erro ao tentar cadastrar. Tente novamente.");
+      console.error("Detalhes do erro:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message
+      });
+  
+      const errorMessage = error.response?.data?.error || 
+        error.message || 
+        "Erro ao conectar com o servidor";
+      
+      Alert.alert("Erro", errorMessage);
     } finally {
       setLoading(false);
-    }
-  };
+    }    
+  };    
 
   return (
     <View className="flex-1 justify-center items-center bg-gray-100 p-5">
