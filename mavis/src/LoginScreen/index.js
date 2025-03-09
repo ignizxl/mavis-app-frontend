@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from "../api/api";
+import { encode } from 'base-64'; 
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -13,39 +15,35 @@ export default function LoginScreen({ navigation }) {
       Alert.alert("Erro", "Todos os campos são obrigatórios!");
       return;
     }
-
+  
     setLoading(true);
-
+  
     try {
-      // codifica o username e password em Base64 para o Basic Auth
-      const credentials = `${username}:${password}`;
-      const encodedCredentials = btoa(credentials); 
-
-      // faz a requisição de login com Basic Auth
-      const loginResponse = await fetch("http://xxx.xxx.x.xxx:8081/api/login", {
-        method: "POST",
-        headers: {
-          "Authorization": `Basic ${encodedCredentials}`,
-          "Content-Type": "application/json",
+      await AsyncStorage.removeItem("token");
+      const encodedCredentials = encode(`${username}:${password}`);
+  
+      const response = await api.post(
+        "/login",
+        {
+          username: username,
+          password: password
         },
-      });
-
-      if (!loginResponse.ok) {
-        const errorText = await loginResponse.text();
-        throw new Error(`Erro ao fazer login: ${errorText}`);
-      }
-
-      const loginData = await loginResponse.json();
-
-      // armazena o token JWT retornado
-      if (loginData.token) {
-        await AsyncStorage.setItem('userToken', loginData.token);
-
+        {
+          headers: {
+            Authorization: `Basic ${encodedCredentials}`,
+          },
+        }
+      );
+  
+      if (response.data.token) {
+        await AsyncStorage.setItem("token", response.data.token);
         Alert.alert("Sucesso", "Login realizado com sucesso!");
-        navigation.navigate("AdditionalInfoScreen"); 
+        navigation.navigate("AdditionalInfoScreen");
       }
     } catch (error) {
-      Alert.alert("Erro", error.message || "Ocorreu um erro durante o login. Tente novamente.");
+      console.error("Erro completo:", error.response?.data || error);
+      const errorMessage = error.response?.data?.message || "Erro no servidor.";
+      Alert.alert("Erro", errorMessage);
     } finally {
       setLoading(false);
     }
@@ -90,7 +88,6 @@ export default function LoginScreen({ navigation }) {
         onPress={handleLogin}
         disabled={loading}
       >
-
         <Text className="text-white text-lg font-bold">
           {loading ? "Carregando..." : "Entrar"}
         </Text>
@@ -102,4 +99,4 @@ export default function LoginScreen({ navigation }) {
       </Text>
     </View>
   );
-}
+} 
