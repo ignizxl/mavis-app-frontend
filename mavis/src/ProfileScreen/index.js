@@ -1,24 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import api from '../api/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function ProfileScreen({ navigation, userProfile }) {
-  const defaultProfile = {
-    fullName: "Maria Clara Silva",
-    dateOfBirth: "1990-07-15",
-    phoneNumber: "79890616179",
-    address: {
-      street: "Rua das Flores",
-      number: "123",
-      neighborhood: "Centro",
-      city: "Brasília",
-      state: "DF",
-      postalCode: "71714-716",
-      referencePoint: "Próximo à praça central"
+export default function ProfileScreen({ navigation }) {
+  const [profile, setProfile] = useState(null);
+  const [error, setError] = useState(null);
+
+  const fetchProfile = async () => {
+    try {
+      const response = await api.get('/users/profiles');
+      setProfile(response.data);
+      setError(null);
+    } catch (error) {
+      console.error('Erro ao buscar perfil:', error);
+      setError('Erro ao carregar perfil');
+      
+      if (error.response?.status === 401) {
+        await AsyncStorage.removeItem('token');
+        navigation.navigate('LoginScreen');
+      }
     }
   };
 
-  const profile = userProfile || defaultProfile;
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  if (error) {
+    return (
+      <View className="flex-1 justify-center items-center">
+        <Text className="text-red-600 text-lg">{error}</Text>
+        <TouchableOpacity 
+          className="mt-4 bg-blue-900 p-3 rounded-lg"
+          onPress={fetchProfile}
+        >
+          <Text className="text-white">Tentar novamente</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  if (!profile) return null;
 
   return (
     <View className="flex-1 bg-gray-100 p-6 mt-8">
@@ -30,26 +54,39 @@ export default function ProfileScreen({ navigation, userProfile }) {
       </View>
 
       <View className="bg-white p-4 rounded-xl shadow-md mb-4">
-        <Text className="text-lg font-semibold text-gray-800">Nome: {profile.fullName}</Text>
-        <Text className="text-gray-600">Nascimento: {new Date(profile.dateOfBirth).toLocaleDateString()}</Text>
-        <Text className="text-gray-600">Telefone: {profile.phoneNumber}</Text>
-        <Text className="text-lg font-semibold text-gray-800">Endereço</Text>
-        <Text className="text-gray-600">Rua: {profile.address.street}, {profile.address.number}</Text>
-        <Text className="text-gray-600">Bairro: {profile.address.neighborhood}</Text>
-        <Text className="text-gray-600">Cidade: {profile.address.city} - {profile.address.state}</Text>
-        <Text className="text-gray-600">CEP: {profile.address.postalCode}</Text>
-        <Text className="text-gray-600">Referência: {profile.address.referencePoint}</Text>
+        <Text className="text-lg font-semibold text-gray-800">
+          Nome: {profile.fullName}
+        </Text>
+        
+        <Text className="text-gray-600">
+          Nascimento: {new Date(profile.dateOfBirth).toLocaleDateString()}
+        </Text>
+
+        <Text className="text-gray-600">
+          Telefone: {profile.phoneNumber}
+        </Text>
+
+        <Text className="text-lg font-semibold text-gray-800 mt-3">Endereço</Text>
+        <Text className="text-gray-600">
+          {profile.address.street}, {profile.address.number}
+        </Text>
+        <Text className="text-gray-600">{profile.address.neighborhood}</Text>
+        <Text className="text-gray-600">
+          {profile.address.city} - {profile.address.state}
+        </Text>
+        <Text className="text-gray-600">{profile.address.postalCode}</Text>
+        <Text className="text-gray-600">
+          Referência: {profile.address.referencePoint}
+        </Text>
       </View>
 
-      <View className="space-y-6">
-        <TouchableOpacity
-          className="bg-blue-900 py-4 mb-6 mt-6 rounded-xl flex-row justify-center items-center"
-          onPress={() => navigation.navigate('EditProfileScreen', { profile })}
-        >
-          <Ionicons name="create" size={24} color="white" />
-          <Text className="text-white font-semibold ml-3">Editar Perfil</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        className="bg-blue-900 py-4 rounded-xl flex-row justify-center items-center mt-4"
+        onPress={() => navigation.navigate('EditProfileScreen', { profile })}
+      >
+        <Ionicons name="create" size={24} color="white" />
+        <Text className="text-white font-semibold ml-3">Editar Perfil</Text>
+      </TouchableOpacity>
 
       <View className="mt-8">
         <View className="flex-row justify-around bg-white py-4 rounded-t-xl shadow-md">
