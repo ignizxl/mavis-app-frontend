@@ -8,46 +8,20 @@ export default function HomeScreen() {
 
   return (
     <View className="flex-1 bg-gray-100 p-6">
-      <View className="flex-1 justify-center">
+      <View className="flex-1 justify-center mb-20">
         <Text className="text-2xl font-bold text-gray-800">Olá! Bem-vindo(a) de volta!</Text>
         <Text className="text-gray-600 mt-2">
           Escolha uma das opções abaixo para navegar pelo MAVIS e acessar suas funcionalidades.
         </Text>
       </View>
 
-      <View className="mb-6">
+      <View className="mb-12">
         <TouchableOpacity
           className="bg-red-500 py-4 rounded-xl flex-row justify-center items-center"
           onPress={() => alert('Emergência disparada!')}
         >
-          <Ionicons name="warning" size={24} color="white" />
+          <Ionicons name="warning" size={40} color="white" />
           <Text className="text-white font-semibold ml-3">Disparar Emergência</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View className="space-y-6">
-        <TouchableOpacity
-          className="bg-blue-900 py-4 mb-6 rounded-xl flex-row justify-center items-center"
-          onPress={() => navigation.navigate('ProfileScreen')}
-        >
-          <Ionicons name="person" size={24} color="white" />
-          <Text className="text-white font-semibold ml-3">Perfil de Saúde</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          className="bg-blue-900 py-4 mb-6 rounded-xl flex-row justify-center items-center"
-          onPress={() => navigation.navigate('EmergencyContactsScreen')}
-        >
-          <Ionicons name="call" size={24} color="white" />
-          <Text className="text-white font-semibold ml-3">Contatos de Emergência</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          className="bg-blue-900 py-4 mb-6 rounded-xl flex-row justify-center items-center"
-          onPress={() => navigation.navigate('MedicalHistoryScreen')}
-        >
-          <Ionicons name="document-text" size={24} color="white" />
-          <Text className="text-white font-semibold ml-3">Histórico Médico</Text>
         </TouchableOpacity>
       </View>
 
